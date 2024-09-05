@@ -124,7 +124,7 @@ body {
 }
 
 /* 歡迎訊息 */
-#welcome-message {
+#username-display {
   margin-bottom: 10px;
   font-size: 30px;
 }
@@ -134,7 +134,7 @@ body {
   margin: 10px 0;
   font-size: 30px;
 }
-#total-visited {
+#visitor-count {
   position: fixed;
   top: 0px;
   right: 70px;
