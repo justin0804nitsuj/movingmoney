@@ -1,36 +1,37 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const port = 3000;
-const bodyParser = require('body-parser');
 
-// 假設你使用一個簡單的內存儲存器來儲存登入資訊
-let loginData = {
-    totalVisited: 0,
-    userLogins: {}
-};
+// 設定靜態文件夾
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.json());
+// 解析 JSON 請求
+app.use(express.json());
 
-// 獲取總來訪人次
-app.get('/totalvisited', (req, res) => {
-    res.json({ totalVisited: loginData.totalVisited });
+// 處理根路徑，指向 index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// 更新使用者登入次數
+// 處理登入請求
 app.post('/login', (req, res) => {
     const { username } = req.body;
-    if (username) {
-        loginData.totalVisited++;
-        if (!loginData.userLogins[username]) {
-            loginData.userLogins[username] = 0;
-        }
-        loginData.userLogins[username]++;
-        res.json({ totalVisited: loginData.totalVisited, userLoginCount: loginData.userLogins[username] });
-    } else {
-        res.status(400).send('Username required');
-    }
-});
+    // 模擬的登入次數和來訪人數
+    res.json({
+      loginCount: 5,
+      visitorCount: 100
+    });
+  });
+  
+  // 處理來訪人數更新請求
+  app.get('/update-visitor-count', (req, res) => {
+    // 返回模擬的來訪人數
+    res.json({
+      visitorCount: 100
+    });
+  });
 
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+  console.log(`伺服器在 http://localhost:${port} 運行`);
 });
