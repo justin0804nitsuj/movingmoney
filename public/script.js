@@ -20,15 +20,19 @@ function login() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('登入次數:', data.loginCount);
-        console.log('來訪人次:', data.visitorCount);
+        if (data.loginCount !== undefined && data.visitorCount !== undefined) {
+            console.log('登入次數:', data.loginCount);
+            console.log('來訪人次:', data.visitorCount);
 
-        // 保存登录数据到 localStorage 供 main.html 使用
-        localStorage.setItem('loginCount', data.loginCount);
-        localStorage.setItem('visitorCount', data.visitorCount);
+            // 保存登录数据到 localStorage 供 main.html 使用
+            localStorage.setItem('loginCount', data.loginCount);
+            localStorage.setItem('visitorCount', data.visitorCount);
 
-        // 重新導向到 main.html
-        window.location.href = 'main.html';
+            // 重新導向到 main.html
+            window.location.href = 'main.html';
+        } else {
+            console.error('API 返回的數據格式不正確');
+        }
     })
     .catch(error => {
         console.error('Error:', error);
