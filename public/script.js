@@ -43,17 +43,15 @@ function login() {
     localStorage.setItem('username', username);
 
     // 發送登入請求
-    fetch('/login', {
+    fetch('/api/login', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username: username })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
     })
     .then(response => response.json())
     .then(data => {
-        // 登入成功後，進行重定向到 main.html
-        window.location.href = 'https://movingmoney.vercel.app/main.html';  // 修改為完整網址
+        console.log('登入次數:', data.loginCount);
+        console.log('來訪人次:', data.visitorCount);
     })
     .catch(error => {
         console.error('Error:', error);
