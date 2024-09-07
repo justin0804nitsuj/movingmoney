@@ -16,27 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // 定義 displayWelcomeMessage 函數
 function displayWelcomeMessage(username, loginCount, visitorCount) {
-    document.getElementById('welcome').innerText = `${username}你好，您已登入本網站 ${loginCount} 次。`;
-    document.getElementById('visitor-count').innerText = `來訪人次: ${visitorCount}`;
+    const usernameDisplayElement = document.getElementById('username-display');
+    if (usernameDisplayElement) {
+        usernameDisplayElement.innerText = `${username} 您好`;
+    }
 
-    // 更新使用者名稱
-    document.getElementById('username-display').innerHTML = `${username} 您好`;
+    const loginCountElement = document.getElementById('login-count');
+    if (loginCountElement) {
+        loginCountElement.innerText = `您已登入本網站 ${loginCount} 次`;
+    }
 
-    // 從伺服器獲取真實的登入次數和訪客人次
-    fetch('/api/visitor-data')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        document.getElementById('login-count').innerHTML = `您已登入本網站 ${data.loginCount} 次`;
-        document.getElementById('visitor-count').innerHTML = `來訪人次: ${data.visitorCount}`;
-    })
-    .catch(error => {
-        console.error('Error fetching visitor data:', error);
-    });
+    const visitorCountElement = document.getElementById('visitor-count');
+    if (visitorCountElement) {
+        visitorCountElement.innerText = `來訪人次: ${visitorCount}`;
+    }
 }
 
 // 當 DOM 完全加載後執行
@@ -66,6 +59,9 @@ function login() {
     .then(data => {
         console.log('登入次數:', data.loginCount);
         console.log('來訪人次:', data.visitorCount);
+
+        // 重新加載 main.html 或直接在本頁面顯示
+        window.location.href = 'main.html';
     })
     .catch(error => {
         console.error('Error:', error);
