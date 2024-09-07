@@ -35,6 +35,7 @@ function login() {
     });
 }
 
+// 顯示歡迎訊息和數據
 function displayWelcomeMessage() {
     const username = localStorage.getItem('username');
     const loginCount = localStorage.getItem('loginCount');
@@ -49,3 +50,11 @@ function displayWelcomeMessage() {
         console.error('無法從 localStorage 獲取數據');
     }
 }
+
+// 當 DOM 完全加載後執行
+document.addEventListener('DOMContentLoaded', () => {
+    // 如果是在 main.html 上，顯示用戶資訊
+    if (window.location.pathname === '/main.html') {
+        displayWelcomeMessage();
+    }
+});
