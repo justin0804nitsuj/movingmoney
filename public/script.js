@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(response => response.json())
           .then(data => {
               // 登入成功後，進行重定向
-              window.location.href = '/main.html';
+              window.location.href = 'main.html';
           })
           .catch(error => {
               console.error('Error:', error);
