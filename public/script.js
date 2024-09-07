@@ -1,5 +1,19 @@
 // script.js
 
+// 當 DOM 完全加載後執行
+document.addEventListener('DOMContentLoaded', () => {
+    const username = localStorage.getItem('username');
+    if (username) {
+        fetch('/api/visitor-data')
+        .then(response => response.json())
+        .then(data => {
+            displayWelcomeMessage(username, data.loginCount, data.visitorCount);
+        })
+        .catch(error => {
+            console.error('Error fetching visitor data:', error);
+        });
+    }
+});
 // 定義 displayWelcomeMessage 函數
 function displayWelcomeMessage(username, loginCount, visitorCount) {
     document.getElementById('welcome').innerText = `${username}你好，您已登入本網站 ${loginCount} 次。`;
