@@ -12,7 +12,7 @@ module.exports = (req, res) => {
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
-                res.status(500).send('服务器错误');
+                res.status(500).send('服務器錯誤');
                 return;
             }
 
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
             fs.writeFile(filePath, JSON.stringify(counts), (err) => {
                 if (err) {
                     console.error(err);
-                    res.status(500).send('服务器错误');
+                    res.status(500).send('服務器錯誤');
                     return;
                 }
                 res.json(counts);
@@ -32,7 +32,7 @@ module.exports = (req, res) => {
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
-                res.status(500).send('服务器错误');
+                res.status(500).send('服務器錯誤');
                 return;
             }
 
@@ -40,6 +40,6 @@ module.exports = (req, res) => {
             res.json(counts);
         });
     } else {
-        res.status(405).send('方法不被允许');
+        res.status(405).send('方法不被允許');
     }
 };

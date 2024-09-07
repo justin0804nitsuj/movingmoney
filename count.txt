@@ -1,1 +1,1 @@
-{"loginCount":1,"visitorCount":1}
+{"loginCount": 0, "visitorCount": 0}

@@ -1,14 +1,30 @@
-// api/login.js
+import fs from 'fs';
+import path from 'path';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+    const filePath = path.join(process.cwd(), 'count.txt'); // 使用 process.cwd() 獲取專案根目錄
+
     if (req.method === 'POST') {
         const { username } = req.body;
-        // 在這裡處理登入邏輯，例如記錄登入次數
-        res.status(200).json({
-            loginCount: 5,  // 模擬的登入次數
-            visitorCount: 100  // 模擬的來訪人次
-        });
+
+        try {
+            // 讀取現有數據
+            const data = await fs.promises.readFile(filePath, 'utf8');
+            const counts = JSON.parse(data);
+
+            // 更新登入次數
+            counts.loginCount += 1;
+
+            // 寫回更新後的數據
+            await fs.promises.writeFile(filePath, JSON.stringify(counts));
+
+            // 返回更新後的數據
+            res.status(200).json(counts);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: '伺服器錯誤' });
+        }
     } else {
-        res.status(405).json({ message: 'Method Not Allowed' });
+        res.status(405).json({ message: '方法不被允許' });
     }
 }
